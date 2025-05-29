@@ -1,50 +1,91 @@
-# mcp-sequentialthinking-tools
+# mcp-sequentialthinking-tools (Enhanced Edition)
 
-An adaptation of the
-[MCP Sequential Thinking Server](https://github.com/modelcontextprotocol/servers/blob/main/src/sequentialthinking/index.ts)
-designed to guide tool usage in problem-solving. This server helps
-break down complex problems into manageable steps and provides
-recommendations for which MCP tools would be most effective at each
-stage.
+An enhanced version of the original [mcp-sequentialthinking-tools](https://github.com/spences10/mcp-sequentialthinking-tools) by Scott Spence, which was adapted from the [MCP Sequential Thinking Server](https://github.com/modelcontextprotocol/servers/blob/main/src/sequentialthinking/index.ts).
+
+This enhanced edition transforms the original framework into an intelligent tool recommendation system with:
+- **26 pre-configured tools** including all Claude Code tools
+- **Automatic tool recommendations** based on thought content
+- **Deep integration** with [Basic Memory MCP](https://github.com/basicmachines-co/basic-memory) for knowledge management
+- **Pattern-based intelligence** that suggests the right tools at the right time
+
+> **Credits**: Original repository by [Scott Spence](https://github.com/spences10). Basic Memory tools from [Basic Machines Co](https://github.com/basicmachines-co). Enhanced with permission.
 
 <a href="https://glama.ai/mcp/servers/zl990kfusy">
   <img width="380" height="200" src="https://glama.ai/mcp/servers/zl990kfusy/badge" />
 </a>
 
 A Model Context Protocol (MCP) server that combines sequential
-thinking with intelligent tool suggestions. For each step in the
-problem-solving process, it provides confidence-scored recommendations
-for which tools to use, along with rationale for why each tool would
-be appropriate.
+thinking with tool usage suggestions. For each step in the
+problem-solving process, it provides confidence scores and rationale
+for tools that could be used, based on tools available in your environment.
 
-## Features
+## What's New in This Enhanced Edition
 
-- 🤔 Dynamic and reflective problem-solving through sequential
-  thoughts
+### 🚀 Key Improvements
+- **Auto-recommends tools** based on your thought content (no manual specification needed!)
+- **26 pre-integrated tools** ready to use out of the box
+- **Intelligent pattern matching** that understands context
+- **Basic Memory integration** for persistent knowledge management
+
+### 📦 Included Tool Sets
+
+#### Claude Code Tools (17 tools)
+- File operations: `Read`, `Write`, `Edit`, `MultiEdit`, `LS`, `Glob`, `Grep`
+- Execution: `Bash`, `Agent`
+- Notebooks: `NotebookRead`, `NotebookEdit`
+- Web: `WebFetch`, `WebSearch`
+- Tasks: `TodoRead`, `TodoWrite`
+- Special: `StickerRequest`
+
+#### Basic Memory Tools (9 tools)
+- `mcp__basic-memory__write_note` - Record knowledge
+- `mcp__basic-memory__read_note` - Access saved information
+- `mcp__basic-memory__search_notes` - Search your knowledge base
+- `mcp__basic-memory__build_context` - Follow knowledge connections
+- And more...
+
+## Original Features (Enhanced)
+
+- 🤔 Dynamic and reflective problem-solving through sequential thoughts
 - 🔄 Flexible thinking process that adapts and evolves
 - 🌳 Support for branching and revision of thoughts
-- 🛠️ Intelligent tool recommendations for each step
-- 📊 Confidence scoring for tool suggestions
-- 🔍 Detailed rationale for tool recommendations
+- 🛠️ **NEW: Automatic tool suggestions based on thought content**
+- 📊 **ENHANCED: Pre-configured confidence scores for each tool**
+- 🔍 **ENHANCED: Context-aware rationale generation**
 - 📝 Step tracking with expected outcomes
 - 🔄 Progress monitoring with previous and remaining steps
-- 🎯 Alternative tool suggestions for each step
+- 🎯 **ENHANCED: Intelligent alternative tool suggestions**
 
 ## How It Works
 
-This server analyses each step of your thought process and recommends
-appropriate MCP tools to help accomplish the task. Each recommendation
-includes:
+### Original Behavior
+The original server provided a framework for tool recommendations but required manual tool specification.
 
-- A confidence score (0-1) indicating how well the tool matches the
-  current need
-- A clear rationale explaining why the tool would be helpful
-- A priority level to suggest tool execution order
-- Alternative tools that could also be used
+### Enhanced Behavior
+This version **automatically analyzes your thoughts** and recommends appropriate tools:
 
-The server works with any MCP tools available in your environment. It
-provides recommendations based on the current step's requirements, but
-the actual tool execution is handled by the consumer (like Claude).
+```typescript
+// You think: "I need to save this important decision"
+// Server automatically recommends: mcp__basic-memory__write_note (0.95 confidence)
+
+// You think: "Search for all TODO comments" 
+// Server automatically recommends: Grep (0.85), Agent (0.75)
+
+// You think: "I want some Claude stickers!"
+// Server automatically recommends: StickerRequest (0.95)
+```
+
+Each recommendation includes:
+- **Confidence score** (0-1) based on pattern matching
+- **Clear rationale** explaining why the tool fits
+- **Priority level** for execution order
+- **Alternative tools** that could also work
+
+The enhanced pattern matching understands context like:
+- "record", "save", "document" → Basic Memory write_note
+- "read", "examine", "check" → Read tool
+- "multiple edits" → MultiEdit tool
+- "run", "execute" → Bash tool
 
 ## Example Usage
 

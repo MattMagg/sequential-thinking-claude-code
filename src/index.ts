@@ -16,6 +16,7 @@ import { dirname, join } from 'path';
 import { fileURLToPath } from 'url';
 import { SEQUENTIAL_THINKING_TOOL } from './schema.js';
 import { ThoughtData, ToolRecommendation, StepRecommendation } from './types.js';
+import { CLAUDE_CODE_TOOLS, recommendToolsForThought } from './claude-tools.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -219,6 +220,22 @@ Expected Outcome: ${step.expected_outcome}${
 				validatedInput.total_thoughts = validatedInput.thought_number;
 			}
 
+			// Auto-generate tool recommendations if not provided
+			if (!validatedInput.current_step && validatedInput.thought) {
+				const recommendations = recommendToolsForThought(
+					validatedInput.thought,
+					this.available_tools
+				);
+				
+				if (recommendations.length > 0) {
+					validatedInput.current_step = {
+						step_description: 'Recommended tools based on thought analysis',
+						recommended_tools: recommendations,
+						expected_outcome: 'Tools to help accomplish the current thinking step'
+					};
+				}
+			}
+
 			// Store the current step in thought history
 			if (validatedInput.current_step) {
 				if (!validatedInput.previous_steps) {
@@ -334,7 +351,7 @@ Expected Outcome: ${step.expected_outcome}${
 }
 
 const thinkingServer = new ToolAwareSequentialThinkingServer({
-	available_tools: [],
+	available_tools: CLAUDE_CODE_TOOLS,
 });
 
 // Expose all available tools
