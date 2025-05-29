@@ -1,4 +1,4 @@
-# mcp-sequentialthinking-tools (Enhanced Edition)
+# sequential-thinking-claude-code
 
 An enhanced version of the original [mcp-sequentialthinking-tools](https://github.com/spences10/mcp-sequentialthinking-tools) by Scott Spence, which was adapted from the [MCP Sequential Thinking Server](https://github.com/modelcontextprotocol/servers/blob/main/src/sequentialthinking/index.ts).
 
